@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace EmployeesProject.Models
+﻿namespace EmployeesProject.Models
 {
     public class User
     {

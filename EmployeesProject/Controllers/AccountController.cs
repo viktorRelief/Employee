@@ -1,7 +1,7 @@
-﻿using EmployeesProject.Models;
+﻿using EmployeesProject.HashData;
+using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -36,12 +36,17 @@ namespace EmployeesProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    User user = await _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
-                    if (user != null)
-                    {
-                        await Authenticate(model.Email);
+                    User userWithHashedPassword = await _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
 
-                        return RedirectToAction("Index", "Home");
+                    if (SecurePasswordHasherHelper.Verify(model.Password, userWithHashedPassword.Password))
+                    {
+                        User user = await _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == userWithHashedPassword.Password);
+                        if (user != null)
+                        {
+                            await Authenticate(model.Email);
+
+                            return RedirectToAction("Index", "Home");
+                        }                    
                     }
                     ModelState.AddModelError("", "Incorrect login or password");
                 }
@@ -53,11 +58,13 @@ namespace EmployeesProject.Controllers
                 throw new Exception("Login internal error");
             }
         }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
@@ -69,7 +76,9 @@ namespace EmployeesProject.Controllers
                     User user = await _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
                     if (user == null)
                     {
-                        _db.Users.Add(new User { Email = model.Email, Password = model.Password });
+                        string hashed_password = SecurePasswordHasherHelper.Hash(model.Password);
+
+                        _db.Users.Add(new User { Email = model.Email, Password = hashed_password });
                         await _db.SaveChangesAsync();
 
                         await Authenticate(model.Email);
