@@ -1,4 +1,5 @@
 ﻿using EmployeesProject.Controllers.Interfaces;
+using EmployeesProject.Interfaces;
 using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,12 @@ namespace EmployeesProject.Controllers
     public class ApiEmployeeController : Controller
     {
         private readonly IEmployeeDataAccessLayer _objemployee;
+        private readonly IDepartmentDataAccessLayer _objdepartment;
 
-        public ApiEmployeeController(IEmployeeDataAccessLayer objemployee)
+        public ApiEmployeeController(IEmployeeDataAccessLayer objemployee, IDepartmentDataAccessLayer objdepartment)
         {
             _objemployee = objemployee;
+            _objdepartment = objdepartment;
         }
 
         [HttpGet]
@@ -68,11 +71,11 @@ namespace EmployeesProject.Controllers
             return await _objemployee.GetDepartments();
         }
 
-        //[HttpPost]
-        //[Route("api/Employee/AddDepartment")]
-        //public Task<int> AddDepartment([FromBody] Employee employee)
-        //{
-        //    return _objemployee.AddEmployee(employee);
-        //}
+        [HttpPost]
+        [Route("api/Department/AddDepartment")]
+        public Task<int> AddDepartment([FromBody] Department department)
+        {
+            return _objdepartment.AddDepartment(department);
+        }
     }
 }

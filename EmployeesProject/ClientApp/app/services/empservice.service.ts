@@ -56,6 +56,12 @@ export class EmployeeService {
             .catch(this.errorHandler);
     }
 
+    addDepartment(department) {
+        return this._http.post(this.myAppUrl + 'api/Department/AddDepartment', department)
+            .map((response: Response) => response.json())
+            .catch(this.errorHandler)
+    }
+
     errorHandler(error: Response) {
         console.log(error);
         return Observable.throw(error);

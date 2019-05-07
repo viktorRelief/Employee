@@ -35,6 +35,12 @@ namespace EmployeesProject.Models
 			        new Department { DepartmentId = 4, DepartmentName = "Kosmo"},
 		        });
 
+            modelBuilder.Entity<User>().HasData(
+                new User[]
+                {
+                    new User { Id = 1, Email = "admin", Password = "123123"},
+                });
+
             base.OnModelCreating(modelBuilder);
 		}
     }

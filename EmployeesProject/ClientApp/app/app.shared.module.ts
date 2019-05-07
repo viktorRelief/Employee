@@ -8,7 +8,8 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './components/app/app.component';  
 import { NavMenuComponent } from './components/navmenu/navmenu.component';  
 import { HomeComponent } from './components/home/home.component';  
-import { FetchEmployeeComponent } from './components/fetchemployee/fetchemployee.component'  
+import { FetchEmployeeComponent } from './components/fetchemployee/fetchemployee.component'
+import { AddDepartmenComponent } from './components/adddepartment/adddepartment.component'
 import { createemployee } from './components/addemployee/AddEmployee.component'  
   
 @NgModule({  
@@ -16,7 +17,8 @@ import { createemployee } from './components/addemployee/AddEmployee.component'
         AppComponent,  
         NavMenuComponent,  
         HomeComponent,  
-        FetchEmployeeComponent,  
+        FetchEmployeeComponent,
+        AddDepartmenComponent,
         createemployee,  
     ],  
     imports: [  
@@ -27,7 +29,8 @@ import { createemployee } from './components/addemployee/AddEmployee.component'
         RouterModule.forRoot([  
             { path: '', redirectTo: 'home', pathMatch: 'full' },  
             { path: 'home', component: HomeComponent },  
-            { path: 'fetch-employee', component: FetchEmployeeComponent },  
+            { path: 'fetch-employee', component: FetchEmployeeComponent },
+            { path: 'add-department', component: AddDepartmenComponent },
             { path: 'register-employee', component: createemployee },
             { path: 'employee/edit/:id', component: createemployee },  
             { path: '**', redirectTo: 'home' }  

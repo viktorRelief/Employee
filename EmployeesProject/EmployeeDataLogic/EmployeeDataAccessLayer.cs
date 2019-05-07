@@ -1,4 +1,5 @@
 ﻿using EmployeesProject.Controllers.Interfaces;
+using EmployeesProject.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace EmployeesProject.Models
 {
     [Authorize]
-    public class EmployeeDataAccessLayer : IEmployeeDataAccessLayer
+    public class EmployeeDataAccessLayer : IEmployeeDataAccessLayer, IDepartmentDataAccessLayer
     {
         private readonly ModelContext _db;
         private readonly ILogger<EmployeeDataAccessLayer> _logger;
@@ -126,6 +127,22 @@ namespace EmployeesProject.Models
             {
                 _logger.LogInformation("Get departments failed" + ex.Message);
                 throw new Exception("Get departments internal server error");
+            }
+        }
+
+        //To Add new department record   
+        public async Task<int> AddDepartment(Department department)
+        {
+            try
+            {
+                await _db.Departments.AddAsync(department);
+                await _db.SaveChangesAsync();
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Add department failed " + ex.Message);
+                throw new Exception("Add department internal server error");
             }
         }
     }

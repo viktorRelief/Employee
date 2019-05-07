@@ -1,9 +1,9 @@
 using EmployeesProject.Controllers.Interfaces;
+using EmployeesProject.Interfaces;
 using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +25,7 @@ namespace EmployeesProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IEmployeeDataAccessLayer, EmployeeDataAccessLayer>();
+            services.AddTransient<IDepartmentDataAccessLayer, EmployeeDataAccessLayer>();
             services.AddTransient<ModelContext>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
