@@ -1,0 +1,36 @@
+﻿@model EmployeesProject.Models.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-area">
+    <h2>Login to the site</h2>
+
+    <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true">
+        <div style="color: red;">@Html.ValidationSummary()</div>
+        <div class="fields-align">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password)
+                @Html.TextBoxFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+        </div>
+        <div style="display: inline-flex;">
+            <div style="margin-right: 5px;" class="form-group">
+                <input type="submit" value="Log In" class="btn" />
+            </div>
+            <div style="position: relative;" class="form-group">
+                <a style="position: absolute; bottom: 0;" asp-action="Register" asp-controller="Account">Registration</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+

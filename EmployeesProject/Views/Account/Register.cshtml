@@ -1,0 +1,32 @@
+﻿@model EmployeesProject.Models.RegisterModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main-area">
+    <h2>Registration</h2>
+    <form asp-action="Register" asp-controller="Account" asp-anti-forgery="true">
+        <div class="fields-align">
+            <div>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Password)
+                @Html.TextBoxFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.ConfirmPassword)
+                @Html.TextBoxFor(m => m.ConfirmPassword)
+                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+            </div>
+        </div>
+        <div style="margin: 10px 0">
+            <input type="submit" value="Registration" />
+        </div>
+    </form>
+</div>
