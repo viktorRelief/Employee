@@ -92,8 +92,8 @@ namespace EmployeesProject.Models
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Confirm deleate employees failed" + ex.Message);
-                throw new Exception("Confirm deleate employee internal server error");
+                _logger.LogInformation("Confirm delete employees failed" + ex.Message);
+                throw new Exception("Confirm delete employee internal server error");
             }
         }
 

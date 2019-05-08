@@ -38,6 +38,12 @@ namespace EmployeesProject.Controllers
                 {
                     User userWithHashedPassword = await _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
 
+                    if(userWithHashedPassword == null)
+                    {
+                        ModelState.AddModelError("", "Incorrect login or password");
+                        return View(model);
+                    }
+
                     if (SecurePasswordHasherHelper.Verify(model.Password, userWithHashedPassword.Password))
                     {
                         User user = await _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == userWithHashedPassword.Password);
@@ -47,8 +53,7 @@ namespace EmployeesProject.Controllers
 
                             return RedirectToAction("Index", "Home");
                         }                    
-                    }
-                    ModelState.AddModelError("", "Incorrect login or password");
+                    }                
                 }
                 return View(model);
             }
