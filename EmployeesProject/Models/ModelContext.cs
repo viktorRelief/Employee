@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EmployeesProject.HashData;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeesProject.Models
 {
@@ -6,8 +7,8 @@ namespace EmployeesProject.Models
     {
         public ModelContext()
         {
-	        Database.EnsureCreated();
-		}
+            Database.EnsureCreated();
+        }
 
         public ModelContext(DbContextOptions<ModelContext> options)
             : base(options)
@@ -29,19 +30,19 @@ namespace EmployeesProject.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-	        modelBuilder.Entity<Department>().HasData(
-		        new Department[]
-		        {
-			        new Department { DepartmentId = 4, DepartmentName = "Kosmo"},
-		        });
+            modelBuilder.Entity<Department>().HasData(
+                new Department[]
+                {
+                    new Department { DepartmentId = 4, DepartmentName = "Kosmo"},
+                });
 
             modelBuilder.Entity<User>().HasData(
                 new User[]
                 {
-                    new User { Id = 1, Email = "admin", Password = "123123"},
+                    new User { Id = 1, Email = "admin", Password = SecurePasswordHasherHelper.Hash("123123")},
                 });
 
             base.OnModelCreating(modelBuilder);
-		}
+        }
     }
 }
