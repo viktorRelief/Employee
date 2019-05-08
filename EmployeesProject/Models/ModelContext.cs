@@ -33,7 +33,7 @@ namespace EmployeesProject.Models
             modelBuilder.Entity<Department>().HasData(
                 new Department[]
                 {
-                    new Department { DepartmentId = 4, DepartmentName = "Kosmo"},
+                    new Department { DepartmentId = 1, DepartmentName = "Kosmo"},
                 });
 
             modelBuilder.Entity<User>().HasData(
