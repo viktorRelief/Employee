@@ -1,4 +1,4 @@
-using EmployeesProject.Controllers.Interfaces;
+using EmployeesProject.EmployeeDataLogic;
 using EmployeesProject.Interfaces;
 using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -31,6 +31,7 @@ namespace EmployeesProject
             //services.AddTransient<ModelContext>();
 
             services.AddTransient<IEmployeeRepository, EmployeeRepository>(provider => new EmployeeRepository(connectionString));
+            services.AddTransient<IDepartmentRepository, DepartmentRepository>(provider => new DepartmentRepository(connectionString));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

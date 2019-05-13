@@ -4,7 +4,7 @@ namespace EmployeesProject.Models
 {
     public class Employee
     {
-        public int EmployeeId { get; set; }
+        public int Id { get; set; }
         [Required]
         [StringLength(10)]
         public string EmployeeLogin { get; set; }
@@ -21,7 +21,7 @@ namespace EmployeesProject.Models
         public string Email { get; set; }
         [Required]
         public string HomeAddress { get; set; }
-        [Required]
-        public string Department { get; set; }
+        public int? DepartmentId { get; set; }
+        public Department Department { get; set; }
     }
 }

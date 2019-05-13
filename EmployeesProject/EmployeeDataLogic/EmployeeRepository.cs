@@ -6,26 +6,29 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using EmployeesProject.Interfaces;
+using EmployeesProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeesProject.Models
+namespace EmployeesProject.EmployeeDataLogic
 {
+    [Authorize]
     public class EmployeeRepository : IEmployeeRepository
     {
-        private readonly ILogger<EmployeeDataAccessLayer> _logger;
+        private readonly ILogger<EmployeeRepository> _logger;
         private readonly string _connectionString = null;
         public EmployeeRepository(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public EmployeeRepository(ILogger<EmployeeDataAccessLayer> logger)
+        public EmployeeRepository(ILogger<EmployeeRepository> logger)
         {
             _logger = logger;
         }
 
         //To get all list of employee
-        public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
+        public async Task<IEnumerable<Employee>> GetAllEmployees()
         {
             try
             {

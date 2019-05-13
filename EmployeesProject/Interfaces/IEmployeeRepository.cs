@@ -11,7 +11,6 @@ namespace EmployeesProject.Interfaces
         Task UpdateEmployee(Employee employee);
         Task<Employee> GetEmployeeData(int id);
         Task DeleteEmployee(int id);
-        //Task<List<Department>> GetDepartments();
         Task<Employee> ConfirmDeleteEmployee(int id);
     }
 }

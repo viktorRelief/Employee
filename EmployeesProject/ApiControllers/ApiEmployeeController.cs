@@ -3,6 +3,7 @@ using EmployeesProject.Interfaces;
 using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,19 +15,26 @@ namespace EmployeesProject.Controllers
     public class ApiEmployeeController : Controller
     {
         private readonly IEmployeeRepository _objemployee;
-        private readonly IDepartmentDataAccessLayer _objdepartment;
+        //private readonly IDepartmentDataAccessLayer _objdepartment;
 
-        public ApiEmployeeController(IEmployeeRepository objemployee, IDepartmentDataAccessLayer objdepartment)
+        public ApiEmployeeController(IEmployeeRepository objemployee/*, IDepartmentDataAccessLayer objdepartment*/)
         {
             _objemployee = objemployee;
-            _objdepartment = objdepartment;
+            //_objdepartment = objdepartment;
         }
 
         [HttpGet]
         [Route("api/Employee/Index")]
         public Task<IEnumerable<Employee>> Index()
         {
-            return _objemployee.GetAllEmployees();
+            try
+            {
+                return _objemployee.GetAllEmployees();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }      
         }
 
         [HttpPost]
