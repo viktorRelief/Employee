@@ -1,5 +1,4 @@
-﻿using EmployeesProject.Controllers.Interfaces;
-using EmployeesProject.Interfaces;
+﻿using EmployeesProject.Interfaces;
 using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +14,10 @@ namespace EmployeesProject.Controllers
     public class ApiEmployeeController : Controller
     {
         private readonly IEmployeeRepository _objemployee;
-        //private readonly IDepartmentDataAccessLayer _objdepartment;
 
-        public ApiEmployeeController(IEmployeeRepository objemployee/*, IDepartmentDataAccessLayer objdepartment*/)
+        public ApiEmployeeController(IEmployeeRepository objemployee)
         {
             _objemployee = objemployee;
-            //_objdepartment = objdepartment;
         }
 
         [HttpGet]

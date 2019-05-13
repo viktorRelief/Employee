@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmployeesProject.Models
 {
@@ -7,5 +8,6 @@ namespace EmployeesProject.Models
         public int Id { get; set; }
         [Required]
         public string DepartmentName { get; set; }
+        public List<Employee> Employees { get; set; }
     }
 }

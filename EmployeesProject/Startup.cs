@@ -26,8 +26,6 @@ namespace EmployeesProject
         {
             string connectionString = "Server=(localdb)\\mssqllocaldb;Database=viktor;Trusted_Connection=True;MultipleActiveResultSets=true";
 
-            //services.AddTransient<IEmployeeDataAccessLayer, EmployeeDataAccessLayer>();
-            //services.AddTransient<IDepartmentDataAccessLayer, EmployeeDataAccessLayer>();
             //services.AddTransient<ModelContext>();
 
             services.AddTransient<IEmployeeRepository, EmployeeRepository>(provider => new EmployeeRepository(connectionString));
