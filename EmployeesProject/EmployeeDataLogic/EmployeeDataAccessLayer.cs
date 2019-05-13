@@ -30,7 +30,7 @@ namespace EmployeesProject.Models
             catch(Exception ex)
             {
                 _logger.LogInformation("Get employees failed " + ex.Message);
-                throw new Exception("Get employee internal server error");
+                throw;
             }
         }
 
@@ -46,7 +46,7 @@ namespace EmployeesProject.Models
             catch(Exception ex)
             {
                 _logger.LogInformation("Add employees failed " + ex.Message);
-                throw new Exception("Add employee internal server error");
+                throw;
             }
         }
 
@@ -63,7 +63,7 @@ namespace EmployeesProject.Models
             catch(Exception ex)
             {
                 _logger.LogInformation("Update employees failed" + ex.Message);
-                throw new Exception("Update employee internal server error");
+                throw;
             }
         }
 
@@ -78,7 +78,7 @@ namespace EmployeesProject.Models
             catch(Exception ex)
             {
                 _logger.LogInformation("Get employees data failed" + ex.Message);
-                throw new Exception("Get employee data internal server error");
+                throw;
             }
         }
 
@@ -92,8 +92,8 @@ namespace EmployeesProject.Models
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Confirm delete employees failed" + ex.Message);
-                throw new Exception("Confirm delete employee internal server error");
+                _logger.LogInformation(ex, "Confirm delete employees failed");
+                throw;
             }
         }
 
@@ -108,8 +108,8 @@ namespace EmployeesProject.Models
             }
             catch(Exception ex)
             {
-                _logger.LogInformation("Deleate employees failed" + ex.Message);
-                throw new Exception("Deleate employee internal server error");
+                _logger.LogInformation(ex, "Delete employee failed");
+                throw;
             }
         }
 
@@ -126,7 +126,7 @@ namespace EmployeesProject.Models
             catch(Exception ex)
             {
                 _logger.LogInformation("Get departments failed" + ex.Message);
-                throw new Exception("Get departments internal server error");
+                throw;
             }
         }
 
@@ -141,8 +141,8 @@ namespace EmployeesProject.Models
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Add department failed " + ex.Message);
-                throw new Exception("Add department internal server error");
+                _logger.LogInformation(ex, "Add department failed ");
+                throw;
             }
         }
     }

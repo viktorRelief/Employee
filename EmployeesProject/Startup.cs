@@ -24,9 +24,13 @@ namespace EmployeesProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IEmployeeDataAccessLayer, EmployeeDataAccessLayer>();
-            services.AddTransient<IDepartmentDataAccessLayer, EmployeeDataAccessLayer>();
-            services.AddTransient<ModelContext>();
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=viktor;Trusted_Connection=True;MultipleActiveResultSets=true";
+
+            //services.AddTransient<IEmployeeDataAccessLayer, EmployeeDataAccessLayer>();
+            //services.AddTransient<IDepartmentDataAccessLayer, EmployeeDataAccessLayer>();
+            //services.AddTransient<ModelContext>();
+
+            services.AddTransient<IEmployeeRepository, EmployeeRepository>(provider => new EmployeeRepository(connectionString));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
@@ -42,7 +46,7 @@ namespace EmployeesProject
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {
+        {        
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,7 +58,7 @@ namespace EmployeesProject
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-            }
+            }     
 
             app.UseStaticFiles();
 

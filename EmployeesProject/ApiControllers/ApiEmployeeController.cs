@@ -13,10 +13,10 @@ namespace EmployeesProject.Controllers
     [Authorize]
     public class ApiEmployeeController : Controller
     {
-        private readonly IEmployeeDataAccessLayer _objemployee;
+        private readonly IEmployeeRepository _objemployee;
         private readonly IDepartmentDataAccessLayer _objdepartment;
 
-        public ApiEmployeeController(IEmployeeDataAccessLayer objemployee, IDepartmentDataAccessLayer objdepartment)
+        public ApiEmployeeController(IEmployeeRepository objemployee, IDepartmentDataAccessLayer objdepartment)
         {
             _objemployee = objemployee;
             _objdepartment = objdepartment;
@@ -31,7 +31,7 @@ namespace EmployeesProject.Controllers
 
         [HttpPost]
         [Route("api/Employee/Create")]
-        public Task<int> Create([FromBody] Employee employee)
+        public Task Create([FromBody] Employee employee)
         {
             return _objemployee.AddEmployee(employee);
         }
@@ -45,7 +45,7 @@ namespace EmployeesProject.Controllers
 
         [HttpPut]
         [Route("api/Employee/Edit")]
-        public Task<int> Edit([FromBody]Employee employee)
+        public Task Edit([FromBody]Employee employee)
         {
             return _objemployee.UpdateEmployee(employee);
         }
@@ -54,28 +54,28 @@ namespace EmployeesProject.Controllers
         [Route("api/Employee/Delete/{id}")]
         public Task<Employee> ConfirmDelete(int id)
         {
-            return _objemployee.ConfirmDelete(id);
+            return _objemployee.ConfirmDeleteEmployee(id);
         }
 
         [HttpDelete]
         [Route("api/Employee/Delete/{id}")]
-        public Task<int> Delete(int id)
+        public Task Delete(int id)
         {
             return _objemployee.DeleteEmployee(id);
         }
 
-        [HttpGet]
-        [Route("api/Employee/GetDepartmentList")]
-        public async Task<IEnumerable<Department>> Details()
-        {
-            return await _objemployee.GetDepartments();
-        }
+        //[HttpGet]
+        //[Route("api/Employee/GetDepartmentList")]
+        //public async Task<IEnumerable<Department>> Details()
+        //{
+        //    return await _objemployee.GetDepartments();
+        //}
 
-        [HttpPost]
-        [Route("api/Department/AddDepartment")]
-        public Task<int> AddDepartment([FromBody] Department department)
-        {
-            return _objdepartment.AddDepartment(department);
-        }
+        //[HttpPost]
+        //[Route("api/Department/AddDepartment")]
+        //public Task<int> AddDepartment([FromBody] Department department)
+        //{
+        //    return _objdepartment.AddDepartment(department);
+        //}
     }
 }

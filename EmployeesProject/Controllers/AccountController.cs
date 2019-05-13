@@ -59,8 +59,8 @@ namespace EmployeesProject.Controllers
             }
             catch(Exception ex)
             {
-                _logger.LogInformation("Login failed " + ex.Message);
-                throw new Exception("Login internal error");
+                _logger.LogInformation(ex, "Login failed");
+                throw;
             }
         }
 
@@ -95,8 +95,8 @@ namespace EmployeesProject.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Registration failed " + ex.Message);
-                throw new Exception("Registration internal error");
+                _logger.LogInformation(ex, "Registration failed");
+                throw;
             }
         }
 
@@ -114,8 +114,8 @@ namespace EmployeesProject.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Authentication failed " + ex.Message);
-                throw new Exception("Authentication internal error");
+                _logger.LogInformation(ex, "Authentication failed");
+                throw;
             }
         }
 
@@ -130,8 +130,8 @@ namespace EmployeesProject.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Logout failed " + ex.Message);
-                throw new Exception("Logout internal error");
+                _logger.LogInformation(ex, "Logout failed");
+                throw;
             }
         }
     }
