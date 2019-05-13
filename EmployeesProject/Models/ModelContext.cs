@@ -15,9 +15,6 @@ namespace EmployeesProject.Models
         {
         }
 
-        //public virtual DbSet<Department> Departments { get; set; }
-        //public virtual DbSet<Employee> Employee { get; set; }
-
         public DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
