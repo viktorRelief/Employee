@@ -23,14 +23,14 @@
     </thead>
     <tbody>
         <tr *ngFor="let emp of empList">
-            <td>{{ emp.employeeId }}</td>
+            <td>{{ emp.id }}</td>
             <td>{{ emp.employeeLogin }}</td>
             <td>{{ emp.firstName }}</td>
             <td>{{ emp.lastName }}</td>
             <td>{{ emp.phoneNumber }}</td>
             <td>{{ emp.email }}</td>
             <td>{{ emp.homeAddress }}</td>
-            <td>{{ emp.department }}</td>
+            <td>{{ emp.departmentId }}</td>
             <td>
             <td>
                 <a [routerLink]="['/employee/edit/', emp.employeeId]">Edit</a> |

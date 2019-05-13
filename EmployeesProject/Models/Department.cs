@@ -4,7 +4,7 @@ namespace EmployeesProject.Models
 {
     public class Department
     {
-        public int DepartmentId { get; set; }
+        public int Id { get; set; }
         [Required]
         public string DepartmentName { get; set; }
     }

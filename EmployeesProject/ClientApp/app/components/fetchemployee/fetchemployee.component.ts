@@ -47,7 +47,7 @@ export class FetchEmployeeComponent {
 }
 
 interface EmployeeData {
-    employeeId: number;
+    id: number;
     employeeLogin: string;
     firstName: string;
     lastName: string;
@@ -55,4 +55,5 @@ interface EmployeeData {
     email: string;
     homeAddress: string;
     department: string;
+    departmentId: number;
 } 

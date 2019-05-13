@@ -15,7 +15,7 @@ namespace EmployeesProject.Models
         {
         }
 
-        public virtual DbSet<Department> Departments { get; set; }
+        //public virtual DbSet<Department> Departments { get; set; }
         //public virtual DbSet<Employee> Employee { get; set; }
 
         public DbSet<User> Users { get; set; }
@@ -30,10 +30,16 @@ namespace EmployeesProject.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Employee>().HasData(
+                new Employee[]
+                {
+                    new Employee { Id = 1, EmployeeLogin = "login", FirstName = "name", LastName = "surname", PhoneNumber = "1234", Email = "qqq@gmmail.com", HomeAddress = "street", DepartmentId = 1},
+                });
+
             modelBuilder.Entity<Department>().HasData(
                 new Department[]
                 {
-                    new Department { DepartmentId = 1, DepartmentName = "Kosmo"},
+                    new Department { Id = 1, DepartmentName = "Kosmo"},
                 });
 
             modelBuilder.Entity<User>().HasData(
