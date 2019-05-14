@@ -31,7 +31,7 @@ export class createemployee implements OnInit {
             phoneNumber: ['', [Validators.required]],
             email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
             homeAddress: ['', [Validators.required]],
-            department: ['', [Validators.required]]
+            departmentId: ['', [Validators.required]]
         })
     }
 
@@ -80,5 +80,5 @@ export class createemployee implements OnInit {
     get phoneNumber() { return this.employeeForm.get('phoneNumber'); }
     get email() { return this.employeeForm.get('email'); }
     get homeAddress() { return this.employeeForm.get('homeAddress'); }
-    get department() { return this.employeeForm.get('department'); }
+    get departmentId() { return this.employeeForm.get('departmentId'); }
 }  

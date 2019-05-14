@@ -58,7 +58,7 @@ namespace EmployeesProject.EmployeeDataLogic
             {
                 using (IDbConnection db = new SqlConnection(_connectionString))
                 {
-                    var sqlQuery = "INSERT INTO Employee (EmployeeLogin, FirstName, LastName, PhoneNumber, Email, HomeAddress) VALUES(@EmployeeLogin, @FirstName, @LastName, @PhoneNumber, @Email, @HomeAddress)";
+                    var sqlQuery = "INSERT INTO Employee (EmployeeLogin, FirstName, LastName, PhoneNumber, Email, HomeAddress, DepartmentId) VALUES(@EmployeeLogin, @FirstName, @LastName, @PhoneNumber, @Email, @HomeAddress, @DepartmentId)";
                     await db.ExecuteAsync(sqlQuery, employee);
                 }
             }
@@ -76,7 +76,7 @@ namespace EmployeesProject.EmployeeDataLogic
             {
                 using (IDbConnection db = new SqlConnection(_connectionString))
                 {
-                    var sqlQuery = "UPDATE Employee SET EmployeeLogin = @EmployeeLogin, FirstName = @FirstName, PhoneNumber = @PhoneNumber, Email = @Email, HomeAddress = @HomeAddress, Department = @Department WHERE EmployeeId = @EmployeeId";
+                    var sqlQuery = "UPDATE Employee SET EmployeeLogin = @EmployeeLogin, FirstName = @FirstName, PhoneNumber = @PhoneNumber, Email = @Email, HomeAddress = @HomeAddress, DepartmentId = @DepartmentId WHERE Id = @Id";
                     await db.ExecuteAsync(sqlQuery, employee);
                 }
             }
