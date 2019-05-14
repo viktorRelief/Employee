@@ -32,9 +32,14 @@ namespace EmployeesProject.EmployeeDataLogic
         {
             try
             {
-                using (IDbConnection db = new SqlConnection(_connectionString))
+                using (var db = new SqlConnection(_connectionString))
                 {
-                    var result = await db.QueryAsync<Employee>("SELECT * FROM Employee");
+                    var result = await db.QueryAsync<Employee, Department, Employee>("SELECT * FROM Employee JOIN Department ON Employee.DepartmentId = Department.Id", (employee, department) =>
+                    {
+                        employee.Department = department;
+
+                        return employee;
+                    });
 
                     return result.ToList();
                 }
@@ -53,7 +58,7 @@ namespace EmployeesProject.EmployeeDataLogic
             {
                 using (IDbConnection db = new SqlConnection(_connectionString))
                 {
-                    var sqlQuery = "INSERT INTO Employee (EmployeeLogin, FirstName, LastName, PhoneNumber, Email, HomeAddress, Department) VALUES(@EmployeeLogin, @FirstName, @LastName, @PhoneNumber, @Email, @HomeAddress, @Department)";
+                    var sqlQuery = "INSERT INTO Employee (EmployeeLogin, FirstName, LastName, PhoneNumber, Email, HomeAddress) VALUES(@EmployeeLogin, @FirstName, @LastName, @PhoneNumber, @Email, @HomeAddress)";
                     await db.ExecuteAsync(sqlQuery, employee);
                 }
             }

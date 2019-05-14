@@ -30,7 +30,7 @@
             <td>{{ emp.phoneNumber }}</td>
             <td>{{ emp.email }}</td>
             <td>{{ emp.homeAddress }}</td>
-            <td>{{ emp.departmentId }}</td>
+            <td>{{ emp.department.departmentName }}</td>
             <td>
             <td>
                 <a [routerLink]="['/employee/edit/', emp.employeeId]">Edit</a> |

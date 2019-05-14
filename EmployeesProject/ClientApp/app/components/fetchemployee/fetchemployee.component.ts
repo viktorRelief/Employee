@@ -54,6 +54,6 @@ interface EmployeeData {
     phoneNumber: string;
     email: string;
     homeAddress: string;
-    department: string;
+    department: object;
     departmentId: number;
 } 

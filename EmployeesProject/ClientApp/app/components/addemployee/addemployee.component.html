@@ -5,7 +5,7 @@
     <div class="form-group row">
         <label class=" control-label col-md-12">EmployeeLogin</label>
         <div class="col-md-4">
-            <input class="form-control" type="text" formControlName="employeeLogin" maxlength="10">
+            <input class="form-control" type="text" formControlName="employeeLogin" maxlength="20">
         </div>
         <span class="text-danger" *ngIf="employeeLogin.invalid && formDir.submitted">
             EmployeeLogin is required.
@@ -14,7 +14,7 @@
     <div class="form-group row">
         <label class="control-label col-md-12" for="FirstName">FirstName</label>
         <div class="col-md-4">
-            <input class="form-control" type="text" formControlName="firstName" maxlength="10">
+            <input class="form-control" type="text" formControlName="firstName" maxlength="20">
         </div>
         <span class="text-danger" *ngIf="firstName.invalid && formDir.submitted">
             FirstName is required
@@ -23,7 +23,7 @@
     <div class="form-group row">
         <label class="control-label col-md-12" for="LastName">LastName</label>
         <div class="col-md-4">
-            <input class="form-control" type="text" formControlName="lastName" maxlength="10">
+            <input class="form-control" type="text" formControlName="lastName" maxlength="20">
         </div>
         <span class="text-danger" *ngIf="lastName.invalid && formDir.submitted">
             LastName is required
@@ -53,7 +53,7 @@
     <div class="form-group row">
         <label class="control-label col-md-12" for="HomeAddress">homeAddress</label>
         <div class="col-md-4">
-            <input class="form-control" type="text" formControlName="homeAddress" maxlength="10">
+            <input class="form-control" type="text" formControlName="homeAddress" maxlength="50">
         </div>
         <span class="text-danger" *ngIf="homeAddress.invalid && formDir.submitted">
             HomeAddress is required
