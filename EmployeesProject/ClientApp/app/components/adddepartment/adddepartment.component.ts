@@ -22,7 +22,7 @@ export class AddDepartmenComponent implements OnInit {
 
         this.departmenForm = this._fb.group({
             departmentId: 0,
-            departmentName: ['', [Validators.required]]
+            name: ['', [Validators.required]]
         })
     }
 
@@ -42,5 +42,5 @@ export class AddDepartmenComponent implements OnInit {
             }, error => this.errorMessage = error)
     }
 
-    get departmentName() { return this.departmenForm.get('departmentName'); }
+    get name() { return this.departmenForm.get('departmentName'); }
 }  

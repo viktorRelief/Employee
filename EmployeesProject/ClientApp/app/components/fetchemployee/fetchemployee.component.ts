@@ -21,8 +21,8 @@ export class FetchEmployeeComponent {
         );
     }
 
-    confirmDelete(employeeID) {
-        this._employeeService.confirmDeleteEmployee(employeeID).subscribe(
+    confirmDelete(id) {
+        this._employeeService.confirmDeleteEmployee(id).subscribe(
             (data) => {
                 this.getEmployees();
             }, error => console.error(error)
@@ -31,15 +31,15 @@ export class FetchEmployeeComponent {
         console.log(this.empList);
 
         if (this.empList) {
-            this.delete(employeeID);
+            this.delete(id);
         }
     }
 
-    delete(employeeID) {
-        var ans = confirm("Do you want to delete employee with Id: " + employeeID);     
+    delete(id) {
+        var ans = confirm("Do you want to delete employee with Id: " + id);     
 
         if (ans) {
-            this._employeeService.deleteEmployee(employeeID).subscribe((data) => {
+            this._employeeService.deleteEmployee(id).subscribe((data) => {
                 this.getEmployees();
             }, error => console.error(error))
         }
@@ -55,5 +55,4 @@ interface EmployeeData {
     email: string;
     homeAddress: string;
     department: object;
-    departmentId: number;
 } 

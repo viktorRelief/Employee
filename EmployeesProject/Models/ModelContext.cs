@@ -27,16 +27,16 @@ namespace EmployeesProject.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Employee>().HasData(
-                new Employee[]
-                {
-                    new Employee { Id = 1, EmployeeLogin = "login", FirstName = "name", LastName = "surname", PhoneNumber = "1234", Email = "qqq@gmmail.com", HomeAddress = "street", DepartmentId = 1},
-                });
+            //modelBuilder.Entity<Employee>().HasData(
+            //    new Employee[]
+            //    {
+            //        new Employee { Id = 1, EmployeeLogin = "login", FirstName = "name", LastName = "surname", PhoneNumber = "1234", Email = "qqq@gmmail.com", HomeAddress = "street", DepartmentId = 1},
+            //    });
 
             modelBuilder.Entity<Department>().HasData(
                 new Department[]
                 {
-                    new Department { Id = 1, DepartmentName = "Kosmo"},
+                    new Department { Id = 1, Name = "Kosmo"},
                 });
 
             modelBuilder.Entity<User>().HasData(

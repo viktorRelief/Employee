@@ -5,9 +5,9 @@
     <div class="form-group row">
         <label class=" control-label col-md-12">Department name</label>
         <div class="col-md-4">
-            <input class="form-control" type="text" formControlName="departmentName" maxlength="10">
+            <input class="form-control" type="text" formControlName="name" maxlength="10">
         </div>
-        <span class="text-danger" *ngIf="departmentName.invalid && formDir.submitted">
+        <span class="text-danger" *ngIf="name.invalid && formDir.submitted">
             DepartmentName is required.
         </span>
     </div>

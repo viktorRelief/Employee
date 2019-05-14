@@ -46,7 +46,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch(Exception ex)
             {
-                _logger.LogInformation("Get employees failed " + ex.Message);
+                _logger.LogInformation(ex, "Get employees failed");
                 throw;
             }
         }
@@ -64,7 +64,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Add employees failed " + ex.Message);
+                _logger.LogInformation(ex, "Add employees failed");
                 throw;
             }
         }
@@ -82,7 +82,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Update employees failed" + ex.Message);
+                _logger.LogInformation(ex, "Update employees failed");
                 throw;
             }
         }
@@ -94,12 +94,12 @@ namespace EmployeesProject.EmployeeDataLogic
             {
                 using (IDbConnection db = new SqlConnection(_connectionString))
                 {
-                    return await db.QueryFirstOrDefaultAsync<Employee>("SELECT * FROM Employee WHERE EmployeeId = @id", new { id });
+                    return await db.QueryFirstOrDefaultAsync<Employee>("SELECT * FROM Employee WHERE Id = @id", new { id });
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Get employees data failed" + ex.Message);
+                _logger.LogInformation(ex, "Get employees data failed");
                 throw;
             }
         }
@@ -111,7 +111,7 @@ namespace EmployeesProject.EmployeeDataLogic
             {          
                 using (IDbConnection db = new SqlConnection(_connectionString))
                 {
-                    return await db.QueryFirstOrDefaultAsync<Employee>("SELECT * FROM c WHERE EmployeeId = @id", new { id });
+                    return await db.QueryFirstOrDefaultAsync<Employee>("SELECT * FROM c WHERE Id = @id", new { id });
                 }
             }
             catch (Exception ex)

@@ -65,8 +65,8 @@
             <select class="form-control" data-val="true" formControlName="department">
                 <option value="">--Select Department--</option>
                 <option *ngFor="let department of departmentList"
-                        value={{department.departmentName}}>
-                    {{department.departmentName}}
+                        value={{department.id}}>
+                    {{department.name}}
                 </option>
             </select>
         </div>

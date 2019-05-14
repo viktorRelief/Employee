@@ -41,7 +41,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Get departments failed" + ex.Message);
+                _logger.LogInformation(ex, "Get departments failed");
                 throw;
             }
         }
@@ -59,7 +59,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Add department failed ");
+                _logger.LogInformation(ex, "Add department failed");
                 throw;
             }
         }

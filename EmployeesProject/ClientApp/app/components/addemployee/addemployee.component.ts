@@ -12,7 +12,7 @@ import { EmployeeService } from '../../services/empservice.service';
 export class createemployee implements OnInit {
     employeeForm: FormGroup;
     title: string = "Create";
-    employeeId: number;
+    id: number;
     errorMessage: any;
     departmentList: Array<any> = [];
     emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
@@ -20,11 +20,11 @@ export class createemployee implements OnInit {
     constructor(private _fb: FormBuilder, private _avRoute: ActivatedRoute,
         private _employeeService: EmployeeService, private _router: Router) {
         if (this._avRoute.snapshot.params["id"]) {
-            this.employeeId = this._avRoute.snapshot.params["id"];
+            this.id = this._avRoute.snapshot.params["id"];
         }
 
         this.employeeForm = this._fb.group({
-            employeeId: 0,
+            id: 0,
             employeeLogin: ['', [Validators.required]],
             firstName: ['', [Validators.required]],
             lastName: ['', [Validators.required]],
@@ -41,9 +41,9 @@ export class createemployee implements OnInit {
             data => this.departmentList = data
         )
 
-        if (this.employeeId > 0) {
+        if (this.id > 0) {
             this.title = "Edit";
-            this._employeeService.getEmployeeById(this.employeeId)
+            this._employeeService.getEmployeeById(this.id)
                 .subscribe(resp => this.employeeForm.setValue(resp)
                 , error => this.errorMessage = error);
         }

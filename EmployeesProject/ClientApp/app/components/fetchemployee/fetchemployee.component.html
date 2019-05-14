@@ -30,11 +30,11 @@
             <td>{{ emp.phoneNumber }}</td>
             <td>{{ emp.email }}</td>
             <td>{{ emp.homeAddress }}</td>
-            <td>{{ emp.department.departmentName }}</td>
+            <td>{{ emp.department.name }}</td>
             <td>
             <td>
-                <a [routerLink]="['/employee/edit/', emp.employeeId]">Edit</a> |
-                <a [routerLink]="" (click)="confirmDelete(emp.employeeId)">Delete</a>
+                <a [routerLink]="['/employee/edit/', emp.id]">Edit</a> |
+                <a [routerLink]="" (click)="confirmDelete(emp.id)">Delete</a>
             </td>
         </tr>
     </tbody>
