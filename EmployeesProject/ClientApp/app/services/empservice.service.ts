@@ -34,31 +34,27 @@ export class EmployeeService {
 
     saveEmployee(employee) {
         return this._http.post(this.myAppUrl + 'api/Employee/Create', employee)
-            .map((response: Response) => response.json())
             .catch(this.errorHandler)
     }
 
     updateEmployee(employee) {
         return this._http.put(this.myAppUrl + 'api/Employee/Edit', employee)
-            .map((response: Response) => response.json())
             .catch(this.errorHandler);
     }
 
     deleteEmployee(id) {
         return this._http.delete(this.myAppUrl + "api/Employee/Delete/" + id)
-            .map((response: Response) => response.json())
             .catch(this.errorHandler);
     }
 
     confirmDeleteEmployee(id: number) {
         return this._http.get(this.myAppUrl + "api/Employee/Delete/" + id)
-            .map((response: Response) => response.json())
             .catch(this.errorHandler);
     }
 
     addDepartment(department) {
         return this._http.post(this.myAppUrl + 'api/Department/AddDepartment', department)
-            .map((response: Response) => response.json())
+            .map(res => res.json())
             .catch(this.errorHandler)
     }
 

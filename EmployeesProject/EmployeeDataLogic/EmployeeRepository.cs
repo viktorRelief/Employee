@@ -111,7 +111,7 @@ namespace EmployeesProject.EmployeeDataLogic
             {          
                 using (IDbConnection db = new SqlConnection(_connectionString))
                 {
-                    return await db.QueryFirstOrDefaultAsync<Employee>("SELECT * FROM c WHERE Id = @id", new { id });
+                    return await db.QueryFirstOrDefaultAsync<Employee>("SELECT * FROM Employee WHERE Id = @id", new { id });
                 }
             }
             catch (Exception ex)
@@ -120,7 +120,7 @@ namespace EmployeesProject.EmployeeDataLogic
                 throw;
             }
         }
-
+ 
         public async Task DeleteEmployee(int id)
         {
             try

@@ -23,12 +23,8 @@ export class FetchEmployeeComponent {
 
     confirmDelete(id) {
         this._employeeService.confirmDeleteEmployee(id).subscribe(
-            (data) => {
-                this.getEmployees();
-            }, error => console.error(error)
+            data => this.getEmployees()
         );
-
-        console.log(this.empList);
 
         if (this.empList) {
             this.delete(id);
