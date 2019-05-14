@@ -1,3 +1,4 @@
+using EmployeesProject.Controllers;
 using EmployeesProject.EmployeeDataLogic;
 using EmployeesProject.Interfaces;
 using EmployeesProject.Models;
@@ -26,10 +27,9 @@ namespace EmployeesProject
         {
             string connectionString = "Server=(localdb)\\mssqllocaldb;Database=viktor;Trusted_Connection=True;MultipleActiveResultSets=true";
 
-            //services.AddTransient<ModelContext>();
-
-            services.AddTransient<IEmployeeRepository, EmployeeRepository>(provider => new EmployeeRepository(connectionString));
-            services.AddTransient<IDepartmentRepository, DepartmentRepository>(provider => new DepartmentRepository(connectionString));
+            services.AddTransient<IEmployeeRepository, EmployeeRepository>(provider => new EmployeeRepository(connectionString, null));
+            services.AddTransient<IDepartmentRepository, DepartmentRepository>(provider => new DepartmentRepository(connectionString, null));
+            //services.AddTransient(provider => new AccountController(connectionString, null));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
@@ -45,7 +45,7 @@ namespace EmployeesProject
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
-        {        
+        {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

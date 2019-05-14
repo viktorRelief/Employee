@@ -1,4 +1,5 @@
-﻿using EmployeesProject.HashData;
+﻿using Dapper;
+using EmployeesProject.HashData;
 using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -7,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -14,12 +17,12 @@ namespace EmployeesProject.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ModelContext _db;
+        private readonly string _connectionString = "Server=(localdb)\\mssqllocaldb;Database=viktor;Trusted_Connection=True;MultipleActiveResultSets=true";
         private readonly ILogger<AccountController> _logger;
 
-        public AccountController(ModelContext db, ILogger<AccountController> logger)
+        public AccountController(/*string connectionString,*/ ILogger<AccountController> logger)
         {
-            _db = db;
+            //_connectionString = connectionString;
             _logger = logger;
         }
 
@@ -36,9 +39,14 @@ namespace EmployeesProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    User userWithHashedPassword = await _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                    User userWithHashedPassword = null;
 
-                    if(userWithHashedPassword == null)
+                    using (IDbConnection db = new SqlConnection(_connectionString))
+                    {
+                        userWithHashedPassword = await db.QueryFirstOrDefaultAsync<User>("SELECT * FROM Users WHERE Email = @Email", new { model.Email });
+                    }
+
+                    if (userWithHashedPassword == null)
                     {
                         ModelState.AddModelError("", "Incorrect login or password");
                         return View(model);
@@ -46,7 +54,13 @@ namespace EmployeesProject.Controllers
 
                     if (SecurePasswordHasherHelper.Verify(model.Password, userWithHashedPassword.Password))
                     {
-                        User user = await _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == userWithHashedPassword.Password);
+                        User user = null;
+
+                        using (IDbConnection db = new SqlConnection(_connectionString))
+                        {
+                            user = await db.QueryFirstOrDefaultAsync<User>("SELECT * FROM Users WHERE Email = @Email AND Password = '"+ userWithHashedPassword.Password + "'", new { model.Email });
+                        }
+
                         if (user != null)
                         {
                             await Authenticate(model.Email);
@@ -78,13 +92,22 @@ namespace EmployeesProject.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    User user = await _db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                    User user = null;
+
+                    using (IDbConnection db = new SqlConnection(_connectionString))
+                    {
+                        user = await db.QueryFirstOrDefaultAsync<User>("SELECT * FROM Users WHERE Email = @Email", new { model.Email });
+                    }
+
                     if (user == null)
                     {
                         string hashed_password = SecurePasswordHasherHelper.Hash(model.Password);
 
-                        _db.Users.Add(new User { Email = model.Email, Password = hashed_password });
-                        await _db.SaveChangesAsync();
+                        using (IDbConnection db = new SqlConnection(_connectionString))
+                        {
+                            var sqlQuery = "INSERT INTO Users (Email, Password) VALUES(@Email, @Password)";
+                            await db.ExecuteAsync(sqlQuery, model);
+                        }
 
                         await Authenticate(model.Email);
 

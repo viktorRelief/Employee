@@ -17,15 +17,16 @@ namespace EmployeesProject.EmployeeDataLogic
     {
         private readonly ILogger<EmployeeRepository> _logger;
         private readonly string _connectionString = null;
-        public EmployeeRepository(string connectionString)
+        public EmployeeRepository(string connectionString, ILogger<EmployeeRepository> logger)
         {
             _connectionString = connectionString;
-        }
-
-        public EmployeeRepository(ILogger<EmployeeRepository> logger)
-        {
             _logger = logger;
         }
+
+        //public EmployeeRepository(ILogger<EmployeeRepository> logger)
+        //{
+        //    _logger = logger;
+        //}
 
         //To get all list of employee
         public async Task<IEnumerable<Employee>> GetAllEmployees()
@@ -46,7 +47,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch(Exception ex)
             {
-                _logger.LogInformation(ex, "Get employees failed");
+                _logger.LogError($"Get employees failed: {ex}");
                 throw;
             }
         }
@@ -64,7 +65,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Add employees failed");
+                _logger.LogError($"Add employees failed: {ex}");
                 throw;
             }
         }
@@ -82,7 +83,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Update employees failed");
+                _logger.LogError($"Update employees failed: {ex}");
                 throw;
             }
         }
@@ -99,7 +100,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Get employees data failed");
+                _logger.LogError($"Get employees data failed: {ex}");
                 throw;
             }
         }
@@ -116,7 +117,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Confirm delete employees failed");
+                _logger.LogError($"Confirm delete employees failed: {ex}");
                 throw;
             }
         }
@@ -133,7 +134,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Delete employee failed");
+                _logger.LogError($"Delete employee failed: {ex}");
                 throw;
             }
         }

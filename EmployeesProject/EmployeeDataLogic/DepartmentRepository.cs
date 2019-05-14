@@ -17,13 +17,9 @@ namespace EmployeesProject.EmployeeDataLogic
     {
         private readonly ILogger<DepartmentRepository> _logger;
         private readonly string _connectionString = null;
-        public DepartmentRepository(string connectionString)
+        public DepartmentRepository(string connectionString, ILogger<DepartmentRepository> logger)
         {
             _connectionString = connectionString;
-        }
-
-        public DepartmentRepository(ILogger<DepartmentRepository> logger)
-        {
             _logger = logger;
         }
 
@@ -41,7 +37,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Get departments failed");
+                _logger.LogError($"Get departments failed: {ex}");
                 throw;
             }
         }
@@ -59,7 +55,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Add department failed");
+                _logger.LogError($"Add department failed: {ex}");
                 throw;
             }
         }

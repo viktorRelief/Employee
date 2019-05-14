@@ -15,8 +15,6 @@ namespace EmployeesProject.Models
         {
         }
 
-        public DbSet<User> Users { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
