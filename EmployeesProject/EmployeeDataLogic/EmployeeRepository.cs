@@ -26,24 +26,16 @@ namespace EmployeesProject.EmployeeDataLogic
         //To get all list of employee
         public async Task<IEnumerable<Employee>> GetAllEmployees()
         {
-            try
+            using (var db = new SqlConnection(_connectionString))
             {
-                using (var db = new SqlConnection(_connectionString))
+                var result = await db.QueryAsync<Employee, Department, Employee>("SELECT * FROM Employee JOIN Department ON Employee.DepartmentId = Department.Id", (employee, department) =>
                 {
-                    var result = await db.QueryAsync<Employee, Department, Employee>("SELECT * FROM Employee JOIN Department ON Employee.DepartmentId = Department.Id", (employee, department) =>
-                    {
-                        employee.Department = department;
+                    employee.Department = department;
 
-                        return employee;
-                    });
+                    return employee;
+                });
 
-                    return result.ToList();
-                }
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError($"Get employees failed: {ex}");
-                throw;
+                return result.ToList();
             }
         }
 

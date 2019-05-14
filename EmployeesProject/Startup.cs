@@ -1,5 +1,5 @@
-using EmployeesProject.Controllers;
 using EmployeesProject.EmployeeDataLogic;
+using EmployeesProject.Extensions;
 using EmployeesProject.Interfaces;
 using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -29,7 +29,6 @@ namespace EmployeesProject
 
             services.AddTransient<IEmployeeRepository, EmployeeRepository>(provider => new EmployeeRepository(connectionString, null));
             services.AddTransient<IDepartmentRepository, DepartmentRepository>(provider => new DepartmentRepository(connectionString, null));
-            //services.AddTransient(provider => new AccountController(connectionString, null));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
@@ -75,6 +74,8 @@ namespace EmployeesProject
             });
 
             loggerFactory.AddLog4Net();
+
+            app.ConfigureCustomExceptionMiddleware();
 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
