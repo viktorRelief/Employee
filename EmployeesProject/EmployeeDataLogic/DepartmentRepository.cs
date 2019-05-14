@@ -53,7 +53,7 @@ namespace EmployeesProject.EmployeeDataLogic
             {
                 using (IDbConnection db = new SqlConnection(_connectionString))
                 {
-                    var sqlQuery = "INSERT INTO Employee (DepartmentName) VALUES(@DepartmentName)";
+                    var sqlQuery = "INSERT INTO Department (Name) VALUES(@Name)";
                     await db.ExecuteAsync(sqlQuery, department);
                 }
             }

@@ -54,7 +54,6 @@ export class EmployeeService {
 
     addDepartment(department) {
         return this._http.post(this.myAppUrl + 'api/Department/AddDepartment', department)
-            .map(res => res.json())
             .catch(this.errorHandler)
     }
 

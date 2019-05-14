@@ -42,5 +42,5 @@ export class AddDepartmenComponent implements OnInit {
             }, error => this.errorMessage = error)
     }
 
-    get name() { return this.departmenForm.get('departmentName'); }
+    get name() { return this.departmenForm.get('name'); }
 }  
