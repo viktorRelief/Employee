@@ -23,11 +23,6 @@ namespace EmployeesProject.EmployeeDataLogic
             _logger = logger;
         }
 
-        //public EmployeeRepository(ILogger<EmployeeRepository> logger)
-        //{
-        //    _logger = logger;
-        //}
-
         //To get all list of employee
         public async Task<IEnumerable<Employee>> GetAllEmployees()
         {

@@ -73,7 +73,7 @@ namespace EmployeesProject.Controllers
             }
             catch(Exception ex)
             {
-                _logger.LogInformation(ex, "Login failed");
+                _logger.LogError($"Login failed: {ex}");
                 throw;
             }
         }
@@ -118,7 +118,7 @@ namespace EmployeesProject.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Registration failed");
+                _logger.LogError($"Registration failed: {ex}");
                 throw;
             }
         }
@@ -137,7 +137,7 @@ namespace EmployeesProject.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Authentication failed");
+                _logger.LogError($"Authentication failed: {ex}");
                 throw;
             }
         }
@@ -153,7 +153,7 @@ namespace EmployeesProject.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Logout failed");
+                _logger.LogError($"Logout failed; {ex}");
                 throw;
             }
         }
