@@ -30,16 +30,11 @@ namespace EmployeesProject
             services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
 
-            services.AddTransient<ModelContext>();
-
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                 });
-
-            string connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ModelContext>(options => options.UseSqlServer(connection));
 
             services.AddMvc().AddDataAnnotationsLocalization();
         }
@@ -79,12 +74,6 @@ namespace EmployeesProject
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });           
-
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<ModelContext>();
-                context.Database.EnsureCreated();
-            }
         }
     }
 }

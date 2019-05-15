@@ -28,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\ModelContext.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\app\components\adddepartment\adddepartment.component.ts" />
     <None Remove="ClientApp\app\components\addemployee\addemployee.component.ts" />
     <None Remove="ClientApp\app\components\fetchemployee\fetchemployee.component.ts" />
