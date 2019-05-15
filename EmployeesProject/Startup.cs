@@ -47,7 +47,10 @@ namespace EmployeesProject
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
+
+                app.ConfigureCustomExceptionMiddleware();
+
                 app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
                 {
                     HotModuleReplacement = true
@@ -74,8 +77,6 @@ namespace EmployeesProject
             });
 
             loggerFactory.AddLog4Net();
-
-            app.ConfigureCustomExceptionMiddleware();
 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
