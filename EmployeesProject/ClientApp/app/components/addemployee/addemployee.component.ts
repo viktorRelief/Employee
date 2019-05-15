@@ -17,6 +17,8 @@ export class createemployee implements OnInit {
     errorMessage: any;
     departmentList: Array<any> = [];
     emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+    phonePattern = "[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}";
+    textOnlyPattern = "^[a-zA-Z ]*$";
 
     constructor(private _fb: FormBuilder, private _avRoute: ActivatedRoute,
         private _employeeService: EmployeeService, private _departmentService: DepartmentService, private _router: Router) {
@@ -27,9 +29,9 @@ export class createemployee implements OnInit {
         this.employeeForm = this._fb.group({
             id: 0,
             employeeLogin: ['', [Validators.required]],
-            firstName: ['', [Validators.required]],
-            lastName: ['', [Validators.required]],
-            phoneNumber: ['', [Validators.required]],
+            firstName: ['', [Validators.required, Validators.pattern(this.textOnlyPattern)]],
+            lastName: ['', [Validators.required, Validators.pattern(this.textOnlyPattern)]],
+            phoneNumber: ['', [Validators.required, Validators.pattern(this.phonePattern)]],
             email: ['', [Validators.required, Validators.pattern(this.emailPattern)]],
             homeAddress: ['', [Validators.required]],
             departmentId: ['', [Validators.required]]

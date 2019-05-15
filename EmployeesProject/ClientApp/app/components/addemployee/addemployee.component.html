@@ -10,33 +10,43 @@
         <span class="text-danger" *ngIf="employeeLogin.invalid && formDir.submitted">
             EmployeeLogin is required.
         </span>
+
     </div>
     <div class="form-group row">
         <label class="control-label col-md-12" for="FirstName">FirstName</label>
         <div class="col-md-4">
             <input class="form-control" type="text" formControlName="firstName" maxlength="20">
         </div>
-        <span class="text-danger" *ngIf="firstName.invalid && formDir.submitted">
-            FirstName is required
-        </span>
+
+        <div *ngIf="firstName.invalid && formDir.submitted" class="text-danger">
+            <div *ngIf="firstName.errors.required">Firstname is required</div>
+            <div *ngIf="firstName.errors.pattern && !firstName.errors.required">FirstName should be contain text only</div>
+        </div>
+
     </div>
     <div class="form-group row">
         <label class="control-label col-md-12" for="LastName">LastName</label>
         <div class="col-md-4">
             <input class="form-control" type="text" formControlName="lastName" maxlength="20">
         </div>
-        <span class="text-danger" *ngIf="lastName.invalid && formDir.submitted">
-            LastName is required
-        </span>
+
+        <div *ngIf="lastName.invalid && formDir.submitted" class="text-danger">
+            <div *ngIf="lastName.errors.required">LastName is required</div>
+            <div *ngIf="lastName.errors.pattern && !lastName.errors.required">LastName should be contain text only</div>
+        </div>
+
     </div>
     <div class="form-group row">
         <label class="control-label col-md-12" for="PhoneNumber">PhoneNumber</label>
         <div class="col-md-4">
             <input class="form-control" type="text" formControlName="phoneNumber">
         </div>
-        <span class="text-danger" *ngIf="phoneNumber.invalid && formDir.submitted">
-            PhoneNumber is required
-        </span>
+
+        <div *ngIf="phoneNumber.invalid && formDir.submitted" class="text-danger">
+            <div *ngIf="phoneNumber.errors.required">Phone number is required.</div>
+            <div *ngIf="phoneNumber.errors.pattern && !phoneNumber.errors.required">Invalid phone number. Please use (xxx) xxx-xxxx</div>
+        </div>
+
     </div>
     <div class="form-group row">
         <label class="control-label col-md-12" for="Email">email</label>
@@ -46,7 +56,7 @@
 
         <div *ngIf="email.invalid && formDir.submitted" class="text-danger">
             <div *ngIf="email.errors.required">Email is required.</div>
-            <div *ngIf="email.errors.pattern && !email.errors.required">Invalid email(from pattern).</div>
+            <div *ngIf="email.errors.pattern && !email.errors.required">Invalid format of email</div>
         </div>
 
     </div>
