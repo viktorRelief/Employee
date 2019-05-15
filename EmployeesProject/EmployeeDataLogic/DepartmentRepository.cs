@@ -26,7 +26,7 @@ namespace EmployeesProject.EmployeeDataLogic
             _connectionString = _config.GetConnectionString("DefaultConnection");
         }
 
-        public async Task<List<Department>> GetDepartments()
+        public async Task<List<Department>> GetAll()
         {
             try
             {
@@ -44,7 +44,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
         }
 
-        public async Task AddDepartment(Department department)
+        public async Task Add(Department department)
         {
             try
             {

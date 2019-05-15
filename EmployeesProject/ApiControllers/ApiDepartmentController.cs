@@ -18,17 +18,17 @@ namespace EmployeesProject.ApiControllers
         }
 
         [HttpGet]
-        [Route("api/Employee/GetDepartmentList")]
-        public async Task<IEnumerable<Department>> Details()
+        [Route("api/Department/GetAll")]
+        public async Task<IEnumerable<Department>> GetAll()
         {
-            return await _departmentRepo.GetDepartments();
+            return await _departmentRepo.GetAll();
         }
 
         [HttpPost]
-        [Route("api/Department/AddDepartment")]
-        public Task AddDepartment([FromBody] Department department)
+        [Route("api/Department/Add")]
+        public Task Add([FromBody] Department department)
         {
-            return _departmentRepo.AddDepartment(department);
+            return _departmentRepo.Add(department);
         }
     }
 }

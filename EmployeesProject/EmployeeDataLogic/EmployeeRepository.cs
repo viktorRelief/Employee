@@ -27,7 +27,7 @@ namespace EmployeesProject.EmployeeDataLogic
             _connectionString = _config.GetConnectionString("DefaultConnection");
         }
 
-        public async Task<IEnumerable<Employee>> GetAllEmployees()
+        public async Task<IEnumerable<Employee>> GetAll()
         {         
             try
             {
@@ -50,7 +50,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
         }
  
-        public async Task AddEmployee(Employee employee)
+        public async Task Add(Employee employee)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
         }
 
-        public async Task UpdateEmployee(Employee employee)
+        public async Task Update(Employee employee)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
         }
 
-        public async Task<Employee> GetEmployeeData(int id)
+        public async Task<Employee> GetData(int id)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
         }
 
-        public async Task<Employee> ConfirmDeleteEmployee(int id)
+        public async Task<Employee> ConfirmDelete(int id)
         {
             try
             {          
@@ -116,7 +116,7 @@ namespace EmployeesProject.EmployeeDataLogic
             }
         }
  
-        public async Task DeleteEmployee(int id)
+        public async Task Delete(int id)
         {
             try
             {

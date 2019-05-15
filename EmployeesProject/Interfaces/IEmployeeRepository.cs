@@ -6,11 +6,11 @@ namespace EmployeesProject.Interfaces
 {
     public interface IEmployeeRepository
     {
-        Task<IEnumerable<Employee>> GetAllEmployees();
-        Task AddEmployee(Employee employee);
-        Task UpdateEmployee(Employee employee);
-        Task<Employee> GetEmployeeData(int id);
-        Task DeleteEmployee(int id);
-        Task<Employee> ConfirmDeleteEmployee(int id);
+        Task<IEnumerable<Employee>> GetAll();
+        Task Add(Employee employee);
+        Task Update(Employee employee);
+        Task<Employee> GetData(int id);
+        Task Delete(int id);
+        Task<Employee> ConfirmDelete(int id);
     }
 }

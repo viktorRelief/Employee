@@ -6,7 +6,7 @@ namespace EmployeesProject.Interfaces
 {
     public interface IDepartmentRepository
     {
-        Task AddDepartment(Department department);
-        Task<List<Department>> GetDepartments();
+        Task<List<Department>> GetAll();
+        Task Add(Department department);     
     }
 }

@@ -14,14 +14,8 @@ export class EmployeeService {
         this.myAppUrl = baseUrl;
     }
 
-    getDepartmentList() {
-        return this._http.get(this.myAppUrl + 'api/Employee/GetDepartmentList')
-            .map(res => res.json())
-            .catch(this.errorHandler);
-    }
-
     getEmployees() {
-        return this._http.get(this.myAppUrl + 'api/Employee/Index')
+        return this._http.get(this.myAppUrl + 'api/Employee/GetAll')
             .map((response: Response) => response.json())
             .catch(this.errorHandler);
     }
@@ -53,8 +47,14 @@ export class EmployeeService {
     }
 
     addDepartment(department) {
-        return this._http.post(this.myAppUrl + 'api/Department/AddDepartment', department)
+        return this._http.post(this.myAppUrl + 'api/Department/Add', department)
             .catch(this.errorHandler)
+    }
+
+    getDepartmentList() {
+        return this._http.get(this.myAppUrl + 'api/Department/GetAll')
+            .map(res => res.json())
+            .catch(this.errorHandler);
     }
 
     errorHandler(error: Response) {
