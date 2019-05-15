@@ -81,7 +81,7 @@ namespace EmployeesProject.EmployeeDataLogic
             {
                 using (IDbConnection db = new SqlConnection(_connectionString))
                 {
-                    var sqlQuery = "UPDATE Employee SET EmployeeLogin = @EmployeeLogin, FirstName = @FirstName, PhoneNumber = @PhoneNumber, Email = @Email, HomeAddress = @HomeAddress, DepartmentId = @DepartmentId WHERE Id = @Id";
+                    var sqlQuery = "UPDATE Employee SET EmployeeLogin = @EmployeeLogin, FirstName = @FirstName, LastName = @LastName, PhoneNumber = @PhoneNumber, Email = @Email, HomeAddress = @HomeAddress, DepartmentId = @DepartmentId WHERE Id = @Id";
                     await db.ExecuteAsync(sqlQuery, employee);
                 }
             }
