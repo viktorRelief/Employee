@@ -2,6 +2,7 @@
 using EmployeesProject.Interfaces;
 using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 namespace EmployeesProject.EmployeeDataLogic
 {
     [Authorize]
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : Controller, IEmployeeRepository
     {
         private readonly ILogger _logger;
         private readonly IConfiguration _config;
@@ -54,10 +55,17 @@ namespace EmployeesProject.EmployeeDataLogic
         {
             try
             {
-                using (IDbConnection db = new SqlConnection(_connectionString))
+                if (ModelState.IsValid)
                 {
-                    var sqlQuery = "INSERT INTO Employee (EmployeeLogin, FirstName, LastName, PhoneNumber, Email, HomeAddress, DepartmentId) VALUES(@EmployeeLogin, @FirstName, @LastName, @PhoneNumber, @Email, @HomeAddress, @DepartmentId)";
-                    await db.ExecuteAsync(sqlQuery, employee);
+                    using (IDbConnection db = new SqlConnection(_connectionString))
+                    {
+                        var sqlQuery = "INSERT INTO Employee (EmployeeLogin, FirstName, LastName, PhoneNumber, Email, HomeAddress, DepartmentId) VALUES(@EmployeeLogin, @FirstName, @LastName, @PhoneNumber, @Email, @HomeAddress, @DepartmentId)";
+                        await db.ExecuteAsync(sqlQuery, employee);
+                    }
+                }
+                else
+                {
+                    _logger.LogInformation("Model validation failed");
                 }
             }
             catch (Exception ex)

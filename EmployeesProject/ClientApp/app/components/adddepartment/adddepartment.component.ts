@@ -13,6 +13,8 @@ export class AddDepartmenComponent implements OnInit {
     title: string = "Create";
     departmentId: number;
     errorMessage: any;
+    departmentList: Array<any> = [];
+    departmentAlreadyExist: boolean;
 
     constructor(private _fb: FormBuilder, private _avRoute: ActivatedRoute,
         private _departmentService: DepartmentService, private _router: Router) {
@@ -27,12 +29,24 @@ export class AddDepartmenComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this._departmentService.getDepartmentList().subscribe(
+            data => this.departmentList = data
+        )
     }
 
     save() {
 
-        if (!this.departmenForm.valid) {
+        for (var i = 0; i < this.departmentList.length; i++) {
+            if (this.departmentList[i].name === this.departmenForm.value.name) {
+                this.departmentAlreadyExist = true;
+                break;
+            }
+            else {
+                this.departmentAlreadyExist = false;
+            }
+        }
+
+        if (!this.departmenForm.valid || this.departmentAlreadyExist) {
             return;
         }
 
