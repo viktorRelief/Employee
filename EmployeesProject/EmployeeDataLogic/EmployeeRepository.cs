@@ -1,45 +1,55 @@
-﻿using System;
+﻿using Dapper;
+using EmployeesProject.Interfaces;
+using EmployeesProject.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapper;
-using EmployeesProject.Interfaces;
-using EmployeesProject.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging;
 
 namespace EmployeesProject.EmployeeDataLogic
 {
     [Authorize]
     public class EmployeeRepository : IEmployeeRepository
     {
-        private readonly ILogger<EmployeeRepository> _logger;
-        private readonly string _connectionString = null;
-        public EmployeeRepository(string connectionString, ILogger<EmployeeRepository> logger)
+        private readonly ILogger _logger;
+        private readonly IConfiguration _config;
+        private string _connectionString = null;
+
+        public EmployeeRepository(ILogger<EmployeeRepository> logger, IConfiguration config)
         {
-            _connectionString = connectionString;
             _logger = logger;
+            _config = config;
+            _connectionString = _config.GetConnectionString("DefaultConnection");
         }
 
-        //To get all list of employee
         public async Task<IEnumerable<Employee>> GetAllEmployees()
-        {
-            using (var db = new SqlConnection(_connectionString))
+        {         
+            try
             {
-                var result = await db.QueryAsync<Employee, Department, Employee>("SELECT * FROM Employee JOIN Department ON Employee.DepartmentId = Department.Id", (employee, department) =>
+                using (var db = new SqlConnection(_connectionString))
                 {
-                    employee.Department = department;
+                    var result = await db.QueryAsync<Employee, Department, Employee>("SELECT * FROM Employee JOIN Department ON Employee.DepartmentId = Department.Id", (employee, department) =>
+                    {
+                        employee.Department = department;
 
-                    return employee;
-                });
+                        return employee;
+                    });
 
-                return result.ToList();
+                    return result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Get employees failed: {ex}");
+                throw;
             }
         }
-
-        //To Add new employee record   
+ 
         public async Task AddEmployee(Employee employee)
         {
             try
@@ -57,7 +67,6 @@ namespace EmployeesProject.EmployeeDataLogic
             }
         }
 
-        //To Update the records of a particluar employee  
         public async Task UpdateEmployee(Employee employee)
         {
             try
@@ -75,7 +84,6 @@ namespace EmployeesProject.EmployeeDataLogic
             }
         }
 
-        //Get the details of a particular employee  
         public async Task<Employee> GetEmployeeData(int id)
         {
             try
@@ -92,7 +100,6 @@ namespace EmployeesProject.EmployeeDataLogic
             }
         }
 
-        //To Delete the record of a particular employee  
         public async Task<Employee> ConfirmDeleteEmployee(int id)
         {
             try

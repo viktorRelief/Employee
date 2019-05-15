@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,16 @@ using System.Threading.Tasks;
 namespace EmployeesProject.Controllers
 {
     public class AccountController : Controller
-    {
-        private readonly string _connectionString = "Server=(localdb)\\mssqllocaldb;Database=viktor;Trusted_Connection=True;MultipleActiveResultSets=true";
+    {      
         private readonly ILogger<AccountController> _logger;
+        private readonly IConfiguration _config;
+        private readonly string _connectionString = null;
 
-        public AccountController(/*string connectionString,*/ ILogger<AccountController> logger)
+        public AccountController(ILogger<AccountController> logger, IConfiguration config)
         {
-            //_connectionString = connectionString;
             _logger = logger;
+            _config = config;
+            _connectionString = _config.GetConnectionString("DefaultConnection");
         }
 
         public IActionResult Login()
@@ -105,7 +108,7 @@ namespace EmployeesProject.Controllers
 
                         using (IDbConnection db = new SqlConnection(_connectionString))
                         {
-                            var sqlQuery = "INSERT INTO Users (Email, Password) VALUES(@Email, @Password)";
+                            var sqlQuery = "INSERT INTO Users (Email, Password) VALUES(@Email, '" + hashed_password + "')";
                             await db.ExecuteAsync(sqlQuery, model);
                         }
 

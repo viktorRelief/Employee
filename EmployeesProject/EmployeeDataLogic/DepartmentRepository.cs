@@ -2,6 +2,7 @@
 using EmployeesProject.Interfaces;
 using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,15 +16,16 @@ namespace EmployeesProject.EmployeeDataLogic
     [Authorize]
     public class DepartmentRepository : IDepartmentRepository
     {
-        private readonly ILogger<DepartmentRepository> _logger;
+        private readonly ILogger _logger;
+        private readonly IConfiguration _config;
         private readonly string _connectionString = null;
-        public DepartmentRepository(string connectionString, ILogger<DepartmentRepository> logger)
+        public DepartmentRepository(ILogger<DepartmentRepository> logger, IConfiguration config)
         {
-            _connectionString = connectionString;
             _logger = logger;
+            _config = config;
+            _connectionString = _config.GetConnectionString("DefaultConnection");
         }
 
-        //To Get the list of Departments
         public async Task<List<Department>> GetDepartments()
         {
             try
@@ -42,7 +44,6 @@ namespace EmployeesProject.EmployeeDataLogic
             }
         }
 
-        //To Add new department record
         public async Task AddDepartment(Department department)
         {
             try

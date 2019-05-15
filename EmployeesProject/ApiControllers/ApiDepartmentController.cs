@@ -1,36 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using EmployeesProject.Interfaces;
+﻿using EmployeesProject.Interfaces;
 using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EmployeesProject.ApiControllers
 {
     [Authorize]
     public class ApiDepartmentController : Controller
     {
-        private readonly IDepartmentRepository _objdepartment;
+        private readonly IDepartmentRepository _departmentRepo;
 
         public ApiDepartmentController(IDepartmentRepository objemployee)
         {
-            _objdepartment = objemployee;
+            _departmentRepo = objemployee;
         }
 
         [HttpGet]
         [Route("api/Employee/GetDepartmentList")]
         public async Task<IEnumerable<Department>> Details()
         {
-            return await _objdepartment.GetDepartments();
+            return await _departmentRepo.GetDepartments();
         }
 
         [HttpPost]
         [Route("api/Department/AddDepartment")]
         public Task AddDepartment([FromBody] Department department)
         {
-            return _objdepartment.AddDepartment(department);
+            return _departmentRepo.AddDepartment(department);
         }
     }
 }

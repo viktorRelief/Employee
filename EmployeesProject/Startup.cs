@@ -25,10 +25,12 @@ namespace EmployeesProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=viktor;Trusted_Connection=True;MultipleActiveResultSets=true";
+            services.AddSingleton(Configuration);
 
-            services.AddTransient<IEmployeeRepository, EmployeeRepository>(provider => new EmployeeRepository(connectionString, null));
-            services.AddTransient<IDepartmentRepository, DepartmentRepository>(provider => new DepartmentRepository(connectionString, null));
+            services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+            services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+
+            services.AddTransient<ModelContext>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
@@ -65,6 +67,8 @@ namespace EmployeesProject
 
             app.UseAuthentication();
 
+            loggerFactory.AddLog4Net();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -74,9 +78,7 @@ namespace EmployeesProject
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
-            });
-
-            loggerFactory.AddLog4Net();
+            });           
 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {

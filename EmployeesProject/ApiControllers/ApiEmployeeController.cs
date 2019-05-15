@@ -2,85 +2,61 @@
 using EmployeesProject.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EmployeesProject.Controllers
 {
     [Authorize]
     public class ApiEmployeeController : Controller
     {
-        private readonly IEmployeeRepository _objemployee;
+        private readonly IEmployeeRepository _employeeRepo;
 
         public ApiEmployeeController(IEmployeeRepository objemployee)
         {
-            _objemployee = objemployee;
+            _employeeRepo = objemployee;
         }
 
         [HttpGet]
         [Route("api/Employee/Index")]
         public Task<IEnumerable<Employee>> Index()
         {
-            try
-            {
-                return _objemployee.GetAllEmployees();
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }      
+            return _employeeRepo.GetAllEmployees();
         }
 
         [HttpPost]
         [Route("api/Employee/Create")]
         public Task Create([FromBody] Employee employee)
         {
-            return _objemployee.AddEmployee(employee);
+            return _employeeRepo.AddEmployee(employee);
         }
 
         [HttpGet]
         [Route("api/Employee/Details/{id}")]
         public Task<Employee> Details(int id)
         {
-            return _objemployee.GetEmployeeData(id);
+            return _employeeRepo.GetEmployeeData(id);
         }
 
         [HttpPut]
         [Route("api/Employee/Edit")]
         public Task Edit([FromBody]Employee employee)
         {
-            return _objemployee.UpdateEmployee(employee);
+            return _employeeRepo.UpdateEmployee(employee);
         }
 
         [HttpGet]
         [Route("api/Employee/Delete/{id}")]
         public Task<Employee> ConfirmDelete(int id)
         {
-            return _objemployee.ConfirmDeleteEmployee(id);
+            return _employeeRepo.ConfirmDeleteEmployee(id);
         }
 
         [HttpDelete]
         [Route("api/Employee/Delete/{id}")]
         public Task Delete(int id)
         {
-            return _objemployee.DeleteEmployee(id);
+            return _employeeRepo.DeleteEmployee(id);
         }
-
-        //[HttpGet]
-        //[Route("api/Employee/GetDepartmentList")]
-        //public async Task<IEnumerable<Department>> Details()
-        //{
-        //    return await _objemployee.GetDepartments();
-        //}
-
-        //[HttpPost]
-        //[Route("api/Department/AddDepartment")]
-        //public Task<int> AddDepartment([FromBody] Department department)
-        //{
-        //    return _objdepartment.AddDepartment(department);
-        //}
     }
 }
