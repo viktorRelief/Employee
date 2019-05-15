@@ -70,7 +70,12 @@ namespace EmployeesProject.Controllers
 
                             return RedirectToAction("Index", "Home");
                         }                    
-                    }                
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Incorrect password");
+                        return View(model);
+                    }
                 }
                 return View(model);
             }
