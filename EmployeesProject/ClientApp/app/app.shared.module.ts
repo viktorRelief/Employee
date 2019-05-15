@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';  
 import { EmployeeService } from './services/empservice.service'
+import { DepartmentService } from './services/depservice.service'
 import { CommonModule } from '@angular/common';  
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';  
 import { HttpModule } from '@angular/http';  
@@ -36,7 +37,7 @@ import { createemployee } from './components/addemployee/AddEmployee.component'
             { path: '**', redirectTo: 'home' }  
         ])  
     ],  
-    providers: [EmployeeService]  
+    providers: [EmployeeService, DepartmentService]  
 })  
 export class AppModuleShared {  
 }  

@@ -4,6 +4,7 @@ import { NgForm, FormBuilder, FormGroup, Validators, FormControl } from '@angula
 import { Router, ActivatedRoute } from '@angular/router';
 import { FetchEmployeeComponent } from '../fetchemployee/fetchemployee.component';
 import { EmployeeService } from '../../services/empservice.service';
+import { DepartmentService } from '../../services/depservice.service';
 
 @Component({
     templateUrl: './addEmployee.component.html'
@@ -18,7 +19,7 @@ export class createemployee implements OnInit {
     emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
     constructor(private _fb: FormBuilder, private _avRoute: ActivatedRoute,
-        private _employeeService: EmployeeService, private _router: Router) {
+        private _employeeService: EmployeeService, private _departmentService: DepartmentService, private _router: Router) {
         if (this._avRoute.snapshot.params["id"]) {
             this.id = this._avRoute.snapshot.params["id"];
         }
@@ -37,7 +38,7 @@ export class createemployee implements OnInit {
 
     ngOnInit() {
 
-        this._employeeService.getDepartmentList().subscribe(
+        this._departmentService.getDepartmentList().subscribe(
             data => this.departmentList = data
         )
 

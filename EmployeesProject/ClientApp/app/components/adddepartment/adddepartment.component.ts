@@ -2,7 +2,7 @@
 import { Http, Headers } from '@angular/http';
 import { NgForm, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { EmployeeService } from '../../services/empservice.service';
+import { DepartmentService } from '../../services/depservice.service';
 
 @Component({
     templateUrl: './adddepartment.component.html'
@@ -15,7 +15,7 @@ export class AddDepartmenComponent implements OnInit {
     errorMessage: any;
 
     constructor(private _fb: FormBuilder, private _avRoute: ActivatedRoute,
-        private _employeeService: EmployeeService, private _router: Router) {
+        private _departmentService: DepartmentService, private _router: Router) {
         if (this._avRoute.snapshot.params["id"]) {
             this.departmentId = this._avRoute.snapshot.params["id"];
         }
@@ -36,7 +36,7 @@ export class AddDepartmenComponent implements OnInit {
             return;
         }
 
-        this._employeeService.addDepartment(this.departmenForm.value)
+        this._departmentService.addDepartment(this.departmenForm.value)
             .subscribe((data) => {
                 this._router.navigate(['/fetch-employee']);
             }, error => this.errorMessage = error)
