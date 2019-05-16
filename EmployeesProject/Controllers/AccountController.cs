@@ -121,6 +121,11 @@ namespace EmployeesProject.Controllers
 
                         return RedirectToAction("Index", "Home");
                     }
+                    else
+                    {
+                        ModelState.AddModelError("", "Email already exist");
+                        return View(model);
+                    }
                 }
                 return View(model);
             }
