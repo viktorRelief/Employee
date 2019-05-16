@@ -11,7 +11,8 @@ CREATE TABLE [dbo].[Users](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Email] [nvarchar](255) NULL,
 	[Password] [nvarchar](255) NULL,
- CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED ([Id] ASC)
+ CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED ([Id] ASC),
+ CONSTRAINT [UC_User_Email] UNIQUE (Email)
 );
 GO
 
