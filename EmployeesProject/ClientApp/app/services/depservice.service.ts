@@ -21,7 +21,6 @@ export class DepartmentService {
 
     getDepartmentList() {
         return this._http.get(this.myAppUrl + 'api/Department/GetAll')
-            .map(res => res.json())
             .catch(this.errorHandler);
     }
 
