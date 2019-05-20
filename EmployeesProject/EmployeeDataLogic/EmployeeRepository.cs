@@ -28,7 +28,7 @@ namespace EmployeesProject.EmployeeDataLogic
             _connectionString = _config.GetConnectionString("DefaultConnection");
         }
 
-        public async Task<IndexViewModel> GetAll(int page)
+        public async Task<IndexViewModel> GetAll(int page = 1)
         {         
             try
             {
