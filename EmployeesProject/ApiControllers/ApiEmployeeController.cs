@@ -18,10 +18,10 @@ namespace EmployeesProject.Controllers
         }
 
         [HttpGet]
-        [Route("api/Employee/GetAll")]
-        public Task<IEnumerable<Employee>> GetAll()
+        [Route("api/Employee/GetAll/{page}")]
+        public Task<IndexViewModel> GetAll(int page)
         {
-            return _employeeRepo.GetAll();
+            return _employeeRepo.GetAll(page);
         }
 
         [HttpPost]

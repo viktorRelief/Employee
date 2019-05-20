@@ -15,7 +15,7 @@ export class createemployee implements OnInit {
     title: string = "Create";
     id: number;
     errorMessage: any;
-    departmentList: Array<any> = [];
+    departmentList: depList[];
     emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
     phonePattern = "[(][0-9]{3}[)] [0-9]{3}-[0-9]{4}";
     textOnlyPattern = "^[a-zA-Z ]*$";
@@ -84,4 +84,10 @@ export class createemployee implements OnInit {
     get email() { return this.employeeForm.get('email'); }
     get homeAddress() { return this.employeeForm.get('homeAddress'); }
     get departmentId() { return this.employeeForm.get('departmentId'); }
-}  
+
+}
+
+interface depList {
+    id: number;
+    name: string;
+} 

@@ -8,16 +8,19 @@ import { EmployeeService } from '../../services/empservice.service'
 })
 
 export class FetchEmployeeComponent {
-    public empList: EmployeeData[];
-    public confirmedEmployee: EmployeeData[];
+    public empData: object;
+    public page: number = 1;
 
-    constructor(public http: Http, private _router: Router, private _employeeService: EmployeeService) {
+    constructor(public http: Http, private _router: Router, private _employeeService: EmployeeService) {    
+    }
+
+    ngOnInit() {
         this.getEmployees();
     }
 
     getEmployees() {
-        this._employeeService.getEmployees().subscribe(
-            data => this.empList = data
+        this._employeeService.getEmployees(this.page).subscribe(
+            data => this.empData = data
         );
     }
 
@@ -26,7 +29,7 @@ export class FetchEmployeeComponent {
             data => this.getEmployees()
         );
 
-        if (this.empList) {
+        if (this.empData) {
             this.delete(id);
         }
     }
@@ -40,9 +43,20 @@ export class FetchEmployeeComponent {
             }, error => console.error(error))
         }
     }
+
+    move(page) {
+        this._employeeService.getEmployees(page).subscribe(
+            data => this.empData = data
+        );
+    }
 }
 
 interface EmployeeData {
+    employee: Employee[];
+    pageViewModel: object; 
+}
+
+interface Employee {
     id: number;
     employeeLogin: string;
     firstName: string;

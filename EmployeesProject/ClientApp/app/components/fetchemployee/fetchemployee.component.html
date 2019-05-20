@@ -2,13 +2,13 @@
 
 <p>This component demonstrates fetching Employee data from the server.</p>
 
-<p *ngIf="!empList"><em>Loading...</em></p>
+<p *ngIf="!empData"><em>Loading...</em></p>
 
 <p>
     <a [routerLink]="['/register-employee']">Create New</a>
 </p>
 
-<table class='table' *ngIf="empList">
+<table class='table' *ngIf="empData">
     <thead>
         <tr>
             <th>EmployeeId</th>
@@ -22,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let emp of empList">
+        <tr *ngFor="let emp of empData.employee">
             <td>{{ emp.id }}</td>
             <td>{{ emp.employeeLogin }}</td>
             <td>{{ emp.firstName }}</td>
@@ -39,3 +39,8 @@
         </tr>
     </tbody>
 </table>
+
+<div *ngIf="empData">
+    <a *ngIf="empData.pageViewModel.hasPreviousPage" (click)="move(empData.pageViewModel.pageNumber - 1)" class="btn btn-default btn"> <i class="glyphicon glyphicon-chevron-left"></i> Назад</a>
+    <a *ngIf="empData.pageViewModel.hasNextPage" (click)="move(empData.pageViewModel.pageNumber + 1)" class="btn btn-default btn"> <i class="glyphicon glyphicon-chevron-right"></i>Вперед</a>
+</div>

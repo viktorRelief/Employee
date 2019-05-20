@@ -28,12 +28,14 @@ namespace EmployeesProject.EmployeeDataLogic
             _connectionString = _config.GetConnectionString("DefaultConnection");
         }
 
-        public async Task<IEnumerable<Employee>> GetAll()
+        public async Task<IndexViewModel> GetAll(int page)
         {         
             try
             {
                 using (var db = new SqlConnection(_connectionString))
                 {
+                    int pageSize = 5;
+
                     var result = await db.QueryAsync<Employee, Department, Employee>("SELECT * FROM Employee JOIN Department ON Employee.DepartmentId = Department.Id", (employee, department) =>
                     {
                         employee.Department = department;
@@ -41,7 +43,19 @@ namespace EmployeesProject.EmployeeDataLogic
                         return employee;
                     });
 
-                    return result.ToList();
+                    var count = result.Count();
+
+                    var items = result.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+                    PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+
+                    IndexViewModel viewModel = new IndexViewModel
+                    {
+                        PageViewModel = pageViewModel,
+                        Employee = items
+                    };
+
+                    return viewModel;
                 }
             }
             catch (Exception ex)

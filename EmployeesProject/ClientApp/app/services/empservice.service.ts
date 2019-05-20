@@ -14,8 +14,9 @@ export class EmployeeService {
         this.myAppUrl = baseUrl;
     }
 
-    getEmployees() {
-        return this._http.get(this.myAppUrl + 'api/Employee/GetAll')
+    getEmployees(page: number) {
+        return this._http.get(this.myAppUrl + 'api/Employee/GetAll/' + page)
+            .map((response: Response) => response.json())
             .catch(this.errorHandler);
     }
 

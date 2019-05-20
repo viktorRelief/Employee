@@ -6,7 +6,7 @@ namespace EmployeesProject.Interfaces
 {
     public interface IEmployeeRepository
     {
-        Task<IEnumerable<Employee>> GetAll();
+        Task<IndexViewModel> GetAll(int page);
         Task Add(Employee employee);
         Task Update(Employee employee);
         Task<Employee> GetData(int id);
